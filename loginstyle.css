@@ -1,0 +1,61 @@
+
+
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+ 
+ body{
+ 	font-family: 'Roboto', sans-serif;
+ 	background: url(images/secogradient.JPEG) no-repeat center center fixed;
+ 	background-size: cover;
+ }
+ .main-section{
+ 	margin: 0 auto;
+ 	margin-top: 130px;
+ 	padding: 0;
+ }.modal-content{
+ 	background-color: transparent;
+ 	padding: 0 18px;
+ 	
+ 	-webkit-box-shadow: -1px 4px 29px 3px rgba(0,0,0,0.75);
+-moz-box-shadow: -1px 4px 29px 3px rgba(0,0,0,0.75);
+box-shadow: -1px 4px 29px 3px rgba(0,0,0,0.75);
+ }
+ .modal-content h2{
+ 	color: #ffffff;
+ }
+ .user-img{
+ 	margin-top: -50px;
+ 	margin-bottom: 35px;
+ }
+ .user-img img{
+height: 100px;
+width: 100px;
+ }
+ .form-group{
+ 	margin-bottom: 25px;
+ 	height: 42px;
+ }
+ 
+
+ }
+ .form-group: last-of-type:: before{
+ 	content:"\f023";
+ }
+ button{
+ 	width: 40%;
+ 	margin: 5px 0 25px;
+ }
+.btn{
+	background-color: #25c1c4;
+	color:#fff;
+	font-size:19px;
+	padding: 7px 14px;
+	border-radius:5px;
+	border-bottom: 4px solid #219da0;
+	width: 100%
+
+}
+.btn:hover, .btn:focus{
+	background-color: #218e91!important;
+	border-bottom: 4px solid  #0d5759!important;
+
+}

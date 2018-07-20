@@ -1,0 +1,50 @@
+.seco{
+	background-image: url("../images/secolands.jpeg	");
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 100% 100%;
+	height: auto;
+
+
+}
+
+.ProfileImage{
+	width: 80px;
+	height: 80px;
+	margin-top: 4%;
+
+}
+.name{
+	color: #fff;
+	padding-top: 6%;
+
+}
+.sidenav{
+	margin-top: 40px;
+	margin-left: 40px;
+	margin-bottom: 6px;
+	height: 80vh;
+	padding: 6px;
+	color: #fff;
+	background-color: #000;
+	text-align: center;
+	border-top-left-radius: 20px;
+	border-bottom-left-radius: 20px;
+	opacity: 0.7;
+  }
+  .cont{
+  	margin-top: 40px;
+	margin-right: 6px;
+	margin-left: 2px;
+	margin-bottom: 6px;
+	height: 80vh;
+	padding: 6px;
+	color: #fff;
+	background-color: #000;
+	border-top-right-radius: 20px;
+	border-bottom-right-radius: 20px;
+	opacity: 0.7;
+  }
+  .haha a{
+  	margin-top: 350px;
+  }
