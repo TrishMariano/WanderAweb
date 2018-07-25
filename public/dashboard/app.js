@@ -1,28 +1,32 @@
+
 function manageBusiness(){
   ReactDOM.render(
     <BusinessMainContainer/>,document.getElementById("mainContainer")
   );
 }
 
+function getPendinBus8inessRequest(){
+  var pendingRequestContainer = document.getElementById("pending-request");
+  firebase.database().ref("businessProfiles").orderByChild("businessApproval").equalTo(false).once('value', function(dataSnapshot){
+    var pendingNumber = 0;
+    dataSnapshot.forEach(function(childSnapshot){
+      pendingNumber = pendingNumber+1;
+    });
+    console.log(pendingNumber);
+    ReactDOM.render(
+      pendingNumber,pendingRequestContainer
+    );
+  });
+}
 class BusinessMainContainer extends React.Component{
   componentDidMount(){
     getBusinessProfileList();
     firebase.database().ref("businessProfiles").on('child_changed',function(dataSnapshot){
       manageBusiness();
     });
+    getPendinBus8inessRequest();
 
 
-    var pendingRequestContainer = document.getElementById("pending-request");
-    firebase.database().ref("businessProfiles").orderByChild("businessApproval").equalTo(false).once('value', function(dataSnapshot){
-      var pendingNumber = 0;
-      dataSnapshot.forEach(function(childSnapshot){
-        pendingNumber = pendingNumber+1;
-      });
-      console.log(pendingNumber);
-      ReactDOM.render(
-        pendingNumber,pendingRequestContainer
-      );
-    });
   }
   render(){
     return(
@@ -64,7 +68,6 @@ changeBusinessStatus(){
     } else {
       // Data saved successfully!
       console.log("success");
-
     }
   }
   );
@@ -78,25 +81,17 @@ reRender(){
   var businessId = this.props.businessId;
   var businessApproval  = this.props.businessApproval;
   if (businessApproval) {
-    ReactDOM.render(
-      <div className="font-weight-light text-center text-small alert alert-success" role="alert">
-        Approved
-      </div>,document.getElementById("status"+businessId)
-    );
+    getPendinBus8inessRequest();
     ReactDOM.render(
       <div className = "btn btn-success">
-        Approve?
+        Approved
       </div>,approvalStatusContainer
     );
   }else {
-    ReactDOM.render(
-      <div className="font-weight-light text-center text-small alert alert-danger" role="alert">
-        Pending Approval
-      </div>,document.getElementById("status"+businessId)
-    );
+    getPendinBus8inessRequest();
     ReactDOM.render(
       <div className = "btn btn-danger">
-        Disable?
+        Disabled
       </div>,approvalStatusContainer
     );
   }
@@ -107,44 +102,40 @@ reRender(){
   firebase.database().ref("users").child(this.props.userId).once('value',function (dataSnapShot){
   var imagePath = dataSnapShot.val().userImage;
   ReactDOM.render(
-    <div className ="row">
-      <div className ="col-sm-2">
-          <img className="user-account-image mr-1 centered rounded-circle border border-secondary" src={imagePath} alt="Card image cap"/>
+    <div className = "ml-1">
+      <div className = "d-flex flex-row align-middle">
+        <div className ="">
+            <img className="user-account-image mr-2 centered rounded-circle border border-secondary" src={imagePath} alt="Card image cap"/>
+        </div>
+        <small className ="align-middle">
+          {dataSnapShot.val().userName}
+        </small>
       </div>
-      <small className ="col-sm-3 pt-3">
-        {dataSnapShot.val().userName}
-      </small>
-      <small className = "col-sm-3 pt-3">
-        {email}
-      </small>
-      <small className = "col-sm-3 pt-3">
-        {contact}
-      </small>
+      <div className = "d-flex flex-row">
+        <small className = "mr-3">
+          {email}
+        </small>
+        <small>
+          {contact}
+        </small>
+      </div>
     </div>,ownerContainer
   );
   });
   firebase.database().ref("businessProfiles").child(this.props.businessId).on('child_changed', function (dataSnapshot){
     console.log(dataSnapshot.val());
     if (dataSnapshot.val()) {
-      ReactDOM.render(
-        <div className="font-weight-light text-center text-small alert alert-success" role="alert">
-          Approved
-        </div>,document.getElementById("status"+businessId)
-      );
+        getPendinBus8inessRequest();
       ReactDOM.render(
         <div className = "btn btn-success">
-          Approve?
+          Approved
         </div>,approvalStatusContainer
       );
     }else {
-      ReactDOM.render(
-        <div className="font-weight-light text-center text-small alert alert-danger" role="alert">
-          Pending Approval
-        </div>,document.getElementById("status"+businessId)
-      );
+        getPendinBus8inessRequest();
       ReactDOM.render(
         <div className = "btn btn-danger">
-          Disable?
+          Disabled
         </div>,approvalStatusContainer
       );
     }
@@ -154,85 +145,35 @@ reRender(){
 render(){
   return(
 
-      <div className="card col-sm-3 shadow-sm m-2 border-0 borde">
-        <div className="d-flex justify-content-center">
-          <img className="centered businessImage rounded-circle border border-secondary" src={this.props.restoProfileImagePath} alt="Card image cap"/>
-        </div>
-        <div className="card-body">
-          <h5 className="text-uppercase font-weight-light card-title text-primary text-center">{this.props.businessname}</h5>
-          <div className ="row">
-            <div className="col-sm-2 p-1">
-              <div className="text-center align-top p-1 w-100 rounded text-primary" data-toggle="modal" data-target={"#manageBusinessDialog"+this.props.businessId}>
-                <i className="material-icons">
-                settings
-                </i>
-              </div>
-            </div>
-            <div className="col-sm-2 p-1">
-              <div className="text-center p-1 w-100 rounded text-success">
-                <i className="material-icons">
-                check
-                </i>
-
-              </div>
-            </div>
-
+      <div className="card col-sm-5 shadow-sm m-2 border-0 borde">
+        <div className = "d-flex flex-row">
+          <div className ="">
+            <img className="centered businessImage rounded-circle border border-secondary" src={this.props.restoProfileImagePath} alt="Card image cap"/>
           </div>
-          <small className="" id={"status"+this.props.businessId}>
-          </small>
-
-          {/* <small className="text-muted font-weight-light">{this.props.address}</small> */}
-
-          {/* <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p> */}
-        </div>
-        <div className="modal fade" id={"manageBusinessDialog"+this.props.businessId} tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div className="modal-dialog modal-lg modal-dialog-centered" role="document">
-            <div className="modal-content">
-              {/* <div className="modal-header">
-                <h5 className="modal-title text-uppercase font-weight-light" id="exampleModalLabel">{this.props.businessname}</h5>
-                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div> */}
-              <div className="modal-body">
-                <div className = "row">
-                  <div className ="col-sm-3">
-                    <img className="centered businessImage rounded-circle border border-secondary" src={this.props.restoProfileImagePath} alt="Card image cap"/>
-                  </div>
-                  <div className = "col-sm-8">
-                      <h5 className="modal-title text-uppercase font-weight-light" id="exampleModalLabel">{this.props.businessname}</h5>
-                      <div className ="row">
-                        <small className="col text-secondary">
-                          {this.props.businessType}
-                        </small>
-                      </div>
-                      <div className ="row">
-                          <div className="col">
-                            {this.props.address}
-                          </div>
-                      </div>
-                      <div id = {"ownerContainer"+this.props.businessId} className = "row">
-
-                      </div>
-                      <div id = {"approvalStatus"+this.props.businessId} onClick={this.changeBusinessStatus.bind(this)} className="row">
-
-                      </div>
-                  </div>
-
-                </div>
+          <div className = "ml-3">
+              <h5 className="modal-title text-uppercase font-weight-light" id="exampleModalLabel">{this.props.businessname}</h5>
+              <div className ="row pl-1">
+                <small className="col text-secondary">
+                  {this.props.businessType}
+                </small>
               </div>
-              {/* <div className="modal-footer">
-                <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" className="btn btn-primary">Save changes</button>
-              </div> */}
-            </div>
+              <div className ="row pl-3 w-100 ">
+                    {this.props.address}
+              </div>
+              <div id = {"ownerContainer"+this.props.businessId} className = "row pl-2 w-100">
+
+              </div>
+              <div id = {"approvalStatus"+this.props.businessId} onClick={this.changeBusinessStatus.bind(this)} className = "row ml-1 mt-2 w-100 ">
+
+              </div>
           </div>
+
         </div>
       </div>
   );
   }
 }
-
+manageBusiness();
 function getBusinessProfileList(){
   var container = document.getElementById("businessProfileList");
   var businssProfilesObjects =[];
