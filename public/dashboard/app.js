@@ -31,15 +31,25 @@ class BusinessMainContainer extends React.Component{
   render(){
     return(
       <div className = "row w-100">
-        <div className = "col-sm-2">
-          <div className="text-uppercase nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-            <a className="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Business</a>
-            <a className="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Pending Request <span id ="pending-request" className="badge badge-danger"></span></a>
-            <a className="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Approved Request</a>
-            <a className="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Business Owners</a>
-          </div>
+
+        <div className = "col-sm-12 justify-content-end">
+          <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Bussiness</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Pending Request <span id ="pending-request" className="badge badge-danger"></span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Approved Request</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Business Owners</a>
+          </li>
+        </ul>
+
         </div>
-        <div className ="col-sm-10" id="businessProfileList">
+        <div className ="col-sm-12" id="businessProfileList">
 
         </div>
       </div>
