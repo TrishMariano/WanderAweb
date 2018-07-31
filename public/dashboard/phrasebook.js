@@ -69,8 +69,6 @@ class PhraseBookContaier extends React.Component{
   }
 }
 
-
-
 class Category extends React.Component{
 
 addPhrase(){
@@ -79,8 +77,8 @@ addPhrase(){
   var categoryId = this.props.id;
   console.log(phraseEnglish+" "+phraseKaraya);
   if (phraseEnglish.lenght!=0 && phraseKaraya.lenght!=0) {
-    var key = firebase.database().ref().child("phrasebook/phrases").child(this.props.id).push().key;
-    firebase.database().ref("phrasebook/phrases").child(this.props.id).child(key).set({
+    var key = firebase.database().ref().child("phrasebook/translation").child(this.props.id).push().key;
+    firebase.database().ref("phrasebook/translation").child(this.props.id).child(key).set({
       category:categoryId,
       english:phraseEnglish,
       karaya:phraseKaraya,
@@ -98,7 +96,7 @@ componentDidMount(){
 getPhraseList(){
   var phraseContainer = document.getElementById("phraseContainer"+this.props.id);
   var phraseObject=[];
-  firebase.database().ref("phrasebook/phrases").child(this.props.id).once("value",function (dataSnapShot){
+  firebase.database().ref("phrasebook/translation").child(this.props.id).once("value",function (dataSnapShot){
     dataSnapShot.forEach(function(childSnapshot){
       phraseObject.push(childSnapshot.val());
     });
@@ -127,7 +125,7 @@ render() {
 
         <div id={"collapseOne"+this.props.id} className="collapse border" aria-labelledby="headingOne" data-parent="#accordionExample">
           <div className="card-body">
-            <button type="button" data-toggle="modal" data-target={"#addPhrase"+this.props.id} className="btn btn-primary">Add PhareseBook</button>
+            <button type="button" data-toggle="modal" data-target={"#addPhrase"+this.props.id} className="btn btn-primary">Add Translation</button>
             <div className  = "row" id = {"phraseContainer"+this.props.id}>
 
             </div>
@@ -160,17 +158,38 @@ render() {
 }
 }
 
+
 class PhrasesListItem extends React.Component{
+  deleteTranslation(){
+
+  }
   render() {
     return(
       <div className = "list-group-item m-1 list-group-item-action">
         <div className = "row">
-          <div className ="col-sm-12">
-            English -> {this.props.phraseEnglish}
+          <div className = "col-sm-10">
+            <div className = "row">
+              <div className ="col-sm-12">
+                English -> {this.props.phraseEnglish}
+              </div>
+              <div className = "col-sm-12">
+                Karay-a -> {this.props.phraseKaraya}
+              </div>
+            </div>
           </div>
-          <div className = "col-sm-12">
-            Karay-a -> {this.props.phraseKaraya}
+          <div className = "col-sm-2">
+            <button type="button" class="btn m-2 btn-success text-white">
+            <i onClick = {this.deleteTranslation.bind(this)} class="material-icons">
+            edit
+            </i>
+            </button>
+            <button type="button" class="btn m-2 btn-danger text-white">
+            <i onClick = {this.deleteTranslation.bind(this)} class="material-icons">
+            delete_forever
+            </i>
+            </button>
           </div>
+
         </div>
       </div>
     )

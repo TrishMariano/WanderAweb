@@ -13,7 +13,6 @@ function getMunicipalityList(){
       var listItem = munObjects.map((object)=>
       <MunicipalityList key = {object.key} id={object.key} municipality = {object.municipality}/>
       );
-
       ReactDOM.render(
         <div className="list-group" id="list-tab" role="tablist">{listItem}</div>,municipalityListContainer
       );
@@ -37,6 +36,27 @@ class BarangayListContainer extends React.Component{
       } else {
         alert("input invalid");
       }
+      this.getbarangayList();
+  }
+
+  componentDidMount(){
+    this.getbarangayList();
+  }
+
+  getbarangayList(){
+    var barangayObjects = [];
+    var barangayContainer = document.getElementById("baranContainer"+this.props.id);
+    firebase.database().ref("barangay").child(this.props.id).once("value",function(dataSnapShot){
+      dataSnapShot.forEach(function (childSnapshot){
+        barangayObjects.push(childSnapshot.val());
+      });
+      var itemList = barangayObjects.map((object)=>
+      <BarangayList key = {object.key} barangayName = {object.barangay}/>
+    );
+    ReactDOM.render(
+      <div>{itemList}</div>,barangayContainer
+    );
+    });
   }
   render(){
     return(
@@ -44,7 +64,7 @@ class BarangayListContainer extends React.Component{
         <div className = "row">
             <button type="button" data-toggle="modal" data-target="#addBarangay" className="btn btn-primary">Add Barangay</button>
         </div>
-        <div className = "row">
+        <div id ={"baranContainer"+this.props.id} className = "row">
 
         </div>
         {/* addBarangay */}
@@ -94,7 +114,7 @@ class UtilitiesMainContainer extends React.Component{
   render(){
     return(
       <div className = "row w-100">
-        <div className = "col-sm-2">
+        <div className = "col-sm-3">
           <div className="text-uppercase nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
             <a className="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Manage Municipality</a>
             {/* <a className="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Pending Request <span id ="pending-request" className="badge badge-danger"></span></a>
@@ -102,7 +122,7 @@ class UtilitiesMainContainer extends React.Component{
             <a className="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Business Owners</a> */}
           </div>
         </div>
-        <div className ="col-sm-10" id="municipalityList">
+        <div className ="col-sm-8" id="municipalityList">
           <div className = "row">
             <button type="button" data-toggle="modal" data-target="#addMunicipality" className="btn btn-primary">Add Municipality</button>
           </div>
@@ -137,10 +157,20 @@ class UtilitiesMainContainer extends React.Component{
   }
 }
 
+class BarangayList extends React.Component{
+  render(){
+    return(
+      <div className = "row">
+        {this.props.barangayName}
+      </div>
+    );
+  }
+}
+
 class MunicipalityList extends React.Component{
   loadBarangayContainer(){
     ReactDOM.render(
-      <BarangayListContainer id = {this.props.id}/>,document.getElementById("barangayContainer")
+      <BarangayListContainer id = {this.props.id}/> ,document.getElementById("barangayContainer")
     );
   }
   render(){

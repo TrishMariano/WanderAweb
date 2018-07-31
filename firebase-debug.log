@@ -1,41 +1,41 @@
-[debug] [2018-07-28T10:05:54.164Z] ----------------------------------------------------------------------
-[debug] [2018-07-28T10:05:54.167Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Keji\AppData\Roaming\npm\node_modules\firebase-tools\bin\firebase serve
-[debug] [2018-07-28T10:05:54.167Z] CLI Version:   3.18.6
-[debug] [2018-07-28T10:05:54.167Z] Platform:      win32
-[debug] [2018-07-28T10:05:54.167Z] Node Version:  v8.11.3
-[debug] [2018-07-28T10:05:54.167Z] Time:          Sat Jul 28 2018 18:05:54 GMT+0800 (Malay Peninsula Standard Time)
-[debug] [2018-07-28T10:05:54.168Z] ----------------------------------------------------------------------
+[debug] [2018-07-31T08:41:14.236Z] ----------------------------------------------------------------------
+[debug] [2018-07-31T08:41:14.239Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Keji\AppData\Roaming\npm\node_modules\firebase-tools\bin\firebase deploy --only hosting
+[debug] [2018-07-31T08:41:14.239Z] CLI Version:   3.18.6
+[debug] [2018-07-31T08:41:14.239Z] Platform:      win32
+[debug] [2018-07-31T08:41:14.239Z] Node Version:  v8.11.3
+[debug] [2018-07-31T08:41:14.239Z] Time:          Tue Jul 31 2018 16:41:14 GMT+0800 (Malay Peninsula Standard Time)
+[debug] [2018-07-31T08:41:14.239Z] ----------------------------------------------------------------------
 [debug] 
-[debug] [2018-07-28T10:05:54.192Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-[debug] [2018-07-28T10:05:54.193Z] > authorizing via signed-in user
-[debug] [2018-07-28T10:05:54.195Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
-[debug] [2018-07-28T10:05:54.195Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
- { refresh_token: '1/7-786rfQrfDcZ3ZlSI8tXW8Q1Ih5Nhe6R7EvebxGAro',
+[debug] [2018-07-31T08:41:14.260Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-07-31T08:41:14.261Z] > authorizing via signed-in user
+[debug] [2018-07-31T08:41:14.263Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2018-07-31T08:41:14.263Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ { refresh_token: '1/PUAIkE_aalo-UuYTydNyixtQk7a3Xl2tUOWnPo95Nno',
   client_id: '563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com',
   client_secret: 'j9iVZfS8kkCEFUPaAeJV0sAi',
   grant_type: 'refresh_token',
   scope: 'email https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/cloudplatformprojects.readonly https://www.googleapis.com/auth/firebase openid' } 
- Sat Jul 28 2018 18:05:54 GMT+0800 (Malay Peninsula Standard Time)
-[debug] [2018-07-28T10:05:55.233Z] <<< HTTP RESPONSE 200
-[debug] [2018-07-28T10:05:55.242Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/group5antique  
+ Tue Jul 31 2018 16:41:14 GMT+0800 (Malay Peninsula Standard Time)
+[debug] [2018-07-31T08:41:18.076Z] <<< HTTP RESPONSE 200
+[debug] [2018-07-31T08:41:18.081Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/group5antique  
   
- Sat Jul 28 2018 18:05:55 GMT+0800 (Malay Peninsula Standard Time)
-[debug] [2018-07-28T10:05:56.978Z] <<< HTTP RESPONSE 200
-[debug] [2018-07-28T10:05:56.979Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/group5antique/tokens  
+ Tue Jul 31 2018 16:41:18 GMT+0800 (Malay Peninsula Standard Time)
+[debug] [2018-07-31T08:41:25.037Z] <<< HTTP RESPONSE 200
+[debug] [2018-07-31T08:41:25.038Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/group5antique/tokens  
   
- Sat Jul 28 2018 18:05:56 GMT+0800 (Malay Peninsula Standard Time)
-[debug] [2018-07-28T10:05:58.176Z] <<< HTTP RESPONSE 200
-[debug] [2018-07-28T10:05:58.177Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/group5antique  
-  
- Sat Jul 28 2018 18:05:58 GMT+0800 (Malay Peninsula Standard Time)
-[debug] [2018-07-28T10:06:00.702Z] <<< HTTP RESPONSE 200
+ Tue Jul 31 2018 16:41:25 GMT+0800 (Malay Peninsula Standard Time)
+[debug] [2018-07-31T08:41:27.789Z] <<< HTTP RESPONSE 200
 [info] 
-[info] === Serving from 'C:\Users\Keji\wanderaweb\WanderAweb'...
+[info] === Deploying to 'group5antique'...
 [info] 
-[debug] [2018-07-28T10:06:00.707Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/69154273022/clients/_:getWebAppConfig  
+[info] i  deploying hosting
+[info] i  hosting: preparing public directory for upload...
+[warn] !  Warning: Public directory does not contain index.html
+[debug] [2018-07-31T08:41:33.694Z] >>> HTTP REQUEST PUT https://deploy.firebase.com/v1/hosting/group5antique/uploads/-LIjUyP5t1dRikIZk-Xb?fileCount=88&message=  
   
- Sat Jul 28 2018 18:06:00 GMT+0800 (Malay Peninsula Standard Time)
-[debug] [2018-07-28T10:06:02.574Z] <<< HTTP RESPONSE 200
-[info] i  hosting: Serving hosting files from: public
-[info] +  hosting: Local server: http://localhost:5000
-
+ Tue Jul 31 2018 16:41:33 GMT+0800 (Malay Peninsula Standard Time)
+[debug] [2018-07-31T08:51:30.377Z] Error: write ECONNRESET
+    at _errnoException (util.js:992:11)
+    at WriteWrap.afterWrite [as oncomplete] (net.js:864:14)
+[error] 
+[error] Error: Server Error. write ECONNRESET
