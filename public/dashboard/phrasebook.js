@@ -38,14 +38,22 @@ class PhraseBookContaier extends React.Component{
       this.getCategory();
     }
   }
+
   render() {
     return(
       <div className = "row">
         <div className ="col-sm-12">
           <button type="button" data-toggle="modal" data-target="#addCategory" className="btn btn-primary">Add Category</button>
         </div>
-        <div className ="col-sm-12" id="categoryContainer">
+        <div className ="col-sm-8" id="categoryContainer">
 
+        </div>
+        <div className = "col-sm-4">
+
+          <div id="list-example" className="list-group">
+           
+           
+          </div>
         </div>
 
         <div className="modal fade" id="addCategory" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -69,6 +77,19 @@ class PhraseBookContaier extends React.Component{
   }
 }
 
+class PhraseListScrollSpy extends React.Component {
+
+  state = {  }
+  render() { 
+    return (  
+       <a class="list-group-item list-group-item-action" href={"categoryScrollSpy"+this.props.id}>Item 1</a>
+    );
+  }
+}
+ 
+
+
+
 class Category extends React.Component{
 
 addPhrase(){
@@ -87,7 +108,7 @@ addPhrase(){
     $("#addPhrase"+this.props.id).modal('hide');
     $("#input-english"+this.props.id).val("");
     $("#input-karaya"+this.props.id).val("");
-    this.getPhraseList();
+    
   }
 }
 componentDidMount(){
@@ -95,13 +116,16 @@ componentDidMount(){
 }
 getPhraseList(){
   var phraseContainer = document.getElementById("phraseContainer"+this.props.id);
-  var phraseObject=[];
-  firebase.database().ref("phrasebook/translation").child(this.props.id).once("value",function (dataSnapShot){
+  
+
+  firebase.database().ref("phrasebook/translation").child(this.props.id).on("value",function (dataSnapShot){
+    var phraseObject=[];
     dataSnapShot.forEach(function(childSnapshot){
       phraseObject.push(childSnapshot.val());
     });
+    phraseObject.reverse();
     var listItem = phraseObject.map((object)=>
-    <PhrasesListItem key = {object.key} phraseEnglish = {object.english} phraseKaraya = {object.karaya} phraseCategory = {object.category}/>
+    <PhrasesListItem key = {object.key} id = {object.key} phraseEnglish = {object.english} phraseKaraya = {object.karaya} phraseCategory = {object.category}/>
   );
   ReactDOM.render(
       <div className="list-group m-2 w-100">
@@ -153,6 +177,7 @@ render() {
           </div>
         </div>
       </div>
+     
     </div>
   );
 }
@@ -161,35 +186,77 @@ render() {
 
 class PhrasesListItem extends React.Component{
   deleteTranslation(){
-
+    firebase.database().ref("phrasebook/translation").child(this.props.phraseCategory).child(this.props.id).remove();
+    console.log("delete clicked");
   }
+  constructor(props){
+    super(props);
+    this.state = {
+      alert: "w-100 alert alert-danger invisible d-flex justify-content-between"
+    }
+  }
+  
+  setAlerState(){
+    let visible = "w-100 alert alert-danger visible d-flex justify-content-between";
+    let invisible = "w-100 alert alert-danger invisible d-flex justify-content-between";
+    this.setState(
+      {
+        alert: (this.state.alert == visible )? invisible: visible ,
+      }
+    )
+  }
+
+  cancleDelete(){
+    let invisible = "w-100 alert alert-danger invisible d-flex justify-content-between";
+    this.setState(
+      {
+        alert: invisible,
+      }
+    )
+  }
+  
   render() {
     return(
       <div className = "list-group-item m-1 list-group-item-action">
         <div className = "row">
           <div className = "col-sm-10">
             <div className = "row">
-              <div className ="col-sm-12">
-                English -> {this.props.phraseEnglish}
+              <div className ="col-sm-10 m-3">
+                <div className = "row">
+                  <h5>English</h5>
+                </div> 
+                <div className = "row">
+                 <h3>{this.props.phraseEnglish}</h3>
+                </div>
               </div>
-              <div className = "col-sm-12">
-                Karay-a -> {this.props.phraseKaraya}
+              <div className = "col-sm-10 m-3">
+                <div className ="row">
+                  <h5>Karay A</h5>
+                </div>
+                <div className = "row">
+                  <h3>{this.props.phraseKaraya}</h3>
+                </div>
               </div>
             </div>
           </div>
           <div className = "col-sm-2">
             <button type="button" class="btn m-2 btn-success text-white">
-            <i onClick = {this.deleteTranslation.bind(this)} class="material-icons">
+            <i  class="material-icons">
             edit
             </i>
             </button>
-            <button type="button" class="btn m-2 btn-danger text-white">
-            <i onClick = {this.deleteTranslation.bind(this)} class="material-icons">
+            <button type="button"  onClick = {this.setAlerState.bind(this)} class="btn m-2 btn-danger text-white">
+            <i class="material-icons" >
             delete_forever
             </i>
             </button>
           </div>
-
+        </div>
+        <div className = "row w-100">
+          <div class={this.state.alert} role="alert">
+            <div><div className = "mt-1">Confirm Delete</div> </div> <div> <button type="button" onClick = {this.cancleDelete.bind(this)} class="btn btn-light btn-sm mr-3">Cancel</button>
+             <button type="button" onClick = {this.deleteTranslation.bind(this)} class="btn btn-danger btn-sm">Remove</button></div>
+          </div>
         </div>
       </div>
     )
