@@ -61,9 +61,7 @@ class PhraseBookContaier extends React.Component{
 
         </div>
         <div className = "col-sm-2">
-
           <div id = "scrollspy" className = "position-fixed">
-           
            
           </div>
         </div>
@@ -197,15 +195,16 @@ render() {
 
 
 class PhrasesListItem extends React.Component{
-  deleteTranslation(){
-    firebase.database().ref("phrasebook/translation").child(this.props.phraseCategory).child(this.props.id).remove();
-    console.log("delete clicked");
-  }
+
   constructor(props){
     super(props);
     this.state = {
       alert: "w-100 alert alert-danger invisible d-flex justify-content-between"
     }
+  }
+  deleteTranslation(){
+    firebase.database().ref("phrasebook/translation").child(this.props.phraseCategory).child(this.props.id).remove();
+    console.log("delete clicked");
   }
   
   setAlerState(){
@@ -226,13 +225,24 @@ class PhrasesListItem extends React.Component{
       }
     )
   }
-  
+  updateTranslation(){
+    let englishPhrase = $("#input-english"+this.props.id).val();
+    let karayaPhrase = $("#input-karaya"+this.props.id).val();
+    console.log(englishPhrase);
+    firebase.database().ref("phrasebook/translation").child(this.props.phraseCategory).child(this.props.id).update({
+      english: englishPhrase,
+      karaya: karayaPhrase
+    });
+    $("#update"+this.props.id).modal('hide');
+  }
+
   render() {
+  
     return(
       <div className = "list-group-item m-1 border-0 list-group-item-action">
         <div className = "row">
           <div className = "col-sm-10">
-            <div className = "row">
+            <div id = "perma" className = "row">
               <div className ="col-sm-10 m-3">
                 <div className = "row">
                   <h5>English</h5>
@@ -252,7 +262,7 @@ class PhrasesListItem extends React.Component{
             </div>
           </div>
           <div className = "col-sm-2">
-            <button type="button" class="btn m-2 btn-success text-white">
+            <button type="button" class="btn m-2 btn-success text-white" data-toggle="modal" data-target={"#update"+this.props.id}>
             <i  class="material-icons">
             edit
             </i>
@@ -265,9 +275,37 @@ class PhrasesListItem extends React.Component{
           </div>
         </div>
         <div className = "row w-100">
-          <div class={this.state.alert} role="alert">
+          <div className={this.state.alert} role="alert">
             <div><div className = "mt-1">Confirm Delete</div> </div> <div> <button type="button" onClick = {this.cancleDelete.bind(this)} class="btn btn-light btn-sm mr-3">Cancel</button>
              <button type="button" onClick = {this.deleteTranslation.bind(this)} class="btn btn-danger btn-sm">Remove</button></div>
+          </div>
+        </div>
+        <div className="modal fade" id={"update"+this.props.id} tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div className="modal-dialog modal-dialog-centered" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title" id="exampleModalLabel">Update Translation</h5>
+                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div className="modal-body">
+              <div className="form-group">
+                <label for="english">English</label>
+                <input type="text" defaultValue = {this.props.phraseEnglish} className="form-control" id={"input-english"+this.props.id}/>
+                <small id="emailHelp" className="form-text text-muted">Enter English Phrase</small>
+              </div>
+              <div className="form-group">
+                <label for="karaya">Karay a</label>
+                <input type="text" defaultValue = {this.props.phraseKaraya} className="form-control" id={"input-karaya"+this.props.id}/>
+                <small id="emailHelp" className="form-text text-muted">Enter Karay a Phrase</small>
+              </div>
+              </div>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" onClick = {this.updateTranslation.bind(this)} className="btn btn-primary">Save changes</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
