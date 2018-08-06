@@ -19,8 +19,20 @@ class PhraseBookContaier extends React.Component{
         <Category key={object.key} id={object.key} category={object.category}/>
       );
       ReactDOM.render(
-        <div className="accordion" id="accordionExample">{itemList}</div>,categoryContainer
+        <div className="accordion" data-spy="scroll" data-target="#list-example" data-offset="0" id="accordionExample">{itemList}</div>,categoryContainer
       );
+
+      var scrollspyItem = categoryObjects.map((object)=>
+        <PhraseListScrollSpy key={object.key} id={object.key} category={object.category} />
+      );
+
+      ReactDOM.render(
+        <div id="list-example" className="list-group">
+          {scrollspyItem} 
+        </div>,document.getElementById("scrollspy")
+      );
+      
+
     });
   }
   componentDidMount(){
@@ -45,12 +57,12 @@ class PhraseBookContaier extends React.Component{
         <div className ="col-sm-12">
           <button type="button" data-toggle="modal" data-target="#addCategory" className="btn btn-primary">Add Category</button>
         </div>
-        <div className ="col-sm-8" id="categoryContainer">
+        <div className ="col-sm-10" id="categoryContainer">
 
         </div>
-        <div className = "col-sm-4">
+        <div className = "col-sm-2">
 
-          <div id="list-example" className="list-group">
+          <div id = "scrollspy" className = "position-fixed">
            
            
           </div>
@@ -82,7 +94,7 @@ class PhraseListScrollSpy extends React.Component {
   state = {  }
   render() { 
     return (  
-       <a class="list-group-item list-group-item-action" href={"categoryScrollSpy"+this.props.id}>Item 1</a>
+       <a class="list-group-item list-group-item-action text-secondary border-0" href={"#heading"+this.props.id}>{this.props.category}</a>
     );
   }
 }
@@ -137,9 +149,9 @@ getPhraseList(){
 
 render() {
   return(
-    <div>
+    <div className = "mb-2">
       <div className="card">
-        <div className="card-header" id={"heading"+this.props.id}>
+        <div className="card-header bg-white" id={"heading"+this.props.id}>
           <h5 className="mb-0">
             <button className="btn btn-link" type="button" data-toggle="collapse" data-target={"#collapseOne"+this.props.id} aria-expanded="true" aria-controls="collapseOne">
               {this.props.category}
@@ -147,8 +159,8 @@ render() {
           </h5>
         </div>
 
-        <div id={"collapseOne"+this.props.id} className="collapse border" aria-labelledby="headingOne" data-parent="#accordionExample">
-          <div className="card-body">
+        <div id={"collapseOne"+this.props.id} className="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+          <div className="card-body ">
             <button type="button" data-toggle="modal" data-target={"#addPhrase"+this.props.id} className="btn btn-primary">Add Translation</button>
             <div className  = "row" id = {"phraseContainer"+this.props.id}>
 
@@ -217,7 +229,7 @@ class PhrasesListItem extends React.Component{
   
   render() {
     return(
-      <div className = "list-group-item m-1 list-group-item-action">
+      <div className = "list-group-item m-1 border-0 list-group-item-action">
         <div className = "row">
           <div className = "col-sm-10">
             <div className = "row">
