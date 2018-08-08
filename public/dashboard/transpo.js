@@ -28,6 +28,7 @@ class TranspoContainer extends React.Component{
            drivername = {object.name}
            price = {object.price}
            seats = {object.seats}
+           contact = {object.number}
            origin = {object.origin}
             /> 
         );
@@ -84,6 +85,7 @@ class TranspoContainer extends React.Component{
         let price = $("#price").val();
         let seats = $("#seats").val();
         let origin = $("#origin").val();
+        let phonenum = $("#contact-number").val();
         let imgPath = this.state.imgPath;
         const key = firebase.database().ref("transportation").push().key;
         firebase.database().ref("transportation").child(key).set({
@@ -91,6 +93,7 @@ class TranspoContainer extends React.Component{
             name:name,
             price:price,
             seats:seats,
+            number:phonenum,
             origin:origin,
             vanImg:imgPath
         });
@@ -98,7 +101,7 @@ class TranspoContainer extends React.Component{
         $("#price").val("");
         $("#seats").val("");
         $("#origin").val("");
-
+        $("#contact-number").val("");
     }
     render() {
         return (
@@ -188,7 +191,7 @@ class TranspoItem extends React.Component {
                 {this.props.drivername}
                 </div>
                 <div className = "col">
-                
+                {this.props.contact}
                 </div>
                 <div className = "col">
                 {this.props.price}
