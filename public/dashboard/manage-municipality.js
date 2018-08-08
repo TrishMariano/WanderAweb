@@ -25,7 +25,16 @@ class MunicipalityContainer extends React.Component{
   componentDidMount(){
     this.getCategory();
   }
-  addCategory(){
+  addMunicipality(){
+    var municipality = $("#input-category").val();
+    var newPostKey = firebase.database().ref("municipality").push().key;
+    firebase.database().ref("municipality").child(newPostKey).set({
+      key:newPostKey,
+      municipality:municipality
+    });
+    this.getCategory();
+    $("#input-category").val("");
+
 
   }
   render() {
@@ -48,7 +57,7 @@ class MunicipalityContainer extends React.Component{
               </div>
               <div className="modal-footer">
                 <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" className="btn btn-primary">Save changes</button>
+                <button type="button" onClick = {this.addMunicipality.bind(this)} className="btn btn-primary">Save changes</button>
               </div>
             </div>
           </div>
