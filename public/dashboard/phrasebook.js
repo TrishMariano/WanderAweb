@@ -4,36 +4,38 @@ function managePhraseBook(){
   );
 }
 
+function getCategory(){
+  var categoryContainer = document.getElementById("categoryContainer");
+  var categoryObjects = [];
 
+  firebase.database().ref("phrasebook/category").once('value',function (dataSnapShot){
+    dataSnapShot.forEach(function(childSnapshot){
+      console.log(childSnapshot.val());
+      categoryObjects.push(childSnapshot.val());
+    });
+    var itemList = categoryObjects.map((object)=>
+      <Category key={object.key} id={object.key} category={object.category}/>
+    );
+    ReactDOM.render(
+      <div className="accordion" data-spy="scroll" data-target="#list-example" data-offset="0" id="accordionExample">{itemList}</div>,categoryContainer
+    );
+
+    var scrollspyItem = categoryObjects.map((object)=>
+      <PhraseListScrollSpy key={object.key} id={object.key} category={object.category} />
+    );
+
+    ReactDOM.render(
+      <div id="list-example" className="list-group">
+        {scrollspyItem} 
+      </div>,document.getElementById("scrollspy")
+    );
+    
+
+  });
+}
 class PhraseBookContaier extends React.Component{
   getCategory(){
-    var categoryContainer = document.getElementById("categoryContainer");
-    var categoryObjects = [];
-
-    firebase.database().ref("phrasebook/category").once('value',function (dataSnapShot){
-      dataSnapShot.forEach(function(childSnapshot){
-        console.log(childSnapshot.val());
-        categoryObjects.push(childSnapshot.val());
-      });
-      var itemList = categoryObjects.map((object)=>
-        <Category key={object.key} id={object.key} category={object.category}/>
-      );
-      ReactDOM.render(
-        <div className="accordion" data-spy="scroll" data-target="#list-example" data-offset="0" id="accordionExample">{itemList}</div>,categoryContainer
-      );
-
-      var scrollspyItem = categoryObjects.map((object)=>
-        <PhraseListScrollSpy key={object.key} id={object.key} category={object.category} />
-      );
-
-      ReactDOM.render(
-        <div id="list-example" className="list-group">
-          {scrollspyItem} 
-        </div>,document.getElementById("scrollspy")
-      );
-      
-
-    });
+    getCategory();
   }
   componentDidMount(){
     this.getCategory();
@@ -47,6 +49,7 @@ class PhraseBookContaier extends React.Component{
         key:key,
       });
       $("#addCategory").modal('hide');
+      $("#input-category").val("");
       this.getCategory();
     }
   }
@@ -144,17 +147,38 @@ getPhraseList(){
     );
   });
 }
+updateCategory(){
+  let updateCategory = $("#update-category"+this.props.id).val();
+
+  firebase.database().ref("phrasebook/category").child(this.props.id).update({
+    category:updateCategory
+  });
+  $("#updateCategory"+this.props.id).modal('hide');
+  getCategory();
+}
+deleteCategory(){
+  firebase.database().ref("phrasebook/category").child(this.props.id).remove();
+  $("#delete"+this.props.id).modal('hide');
+  getCategory();
+}
+state = {
+  deleteExtend:"d-none"
+}
 
 render() {
   return(
     <div className = "mb-2">
       <div className="card">
-        <div className="card-header bg-white" id={"heading"+this.props.id}>
+        <div className="card-header bg-white d-flex justify-content-between" id={"heading"+this.props.id}>
           <h5 className="mb-0">
             <button className="btn btn-link" type="button" data-toggle="collapse" data-target={"#collapseOne"+this.props.id} aria-expanded="true" aria-controls="collapseOne">
               {this.props.category}
             </button>
           </h5>
+          <div>
+          <button type="button" data-toggle="modal" data-target={"#updateCategory"+this.props.id} className="btn btn-success mr-3">Update</button>
+          <button type="button" data-toggle="modal" data-target={"#delete"+this.props.id} className="btn btn-danger">Delete</button>
+          </div>
         </div>
 
         <div id={"collapseOne"+this.props.id} className="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
@@ -187,6 +211,36 @@ render() {
           </div>
         </div>
       </div>
+     {/* udpate modal */}
+     <div className="modal fade" id={"updateCategory"+this.props.id} tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div className="modal-dialog" role="document">
+            <div className="modal-content">
+              <div className="modal-body">
+                <div className="form-group">
+                  <label for="exampleInputPassword1">Update Category</label>
+                  <input type="text" className="form-control" id={"update-category"+this.props.id} defaultValue={this.props.category} placeholder=""/>
+                </div>
+              </div>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" className="btn btn-primary" onClick = {this.updateCategory.bind(this)}>Save changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="modal fade" id={"delete"+this.props.id} tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div className="modal-dialog" role="document">
+            <div className="modal-content">
+              <div className="modal-body">
+                Delete Category?
+              </div>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" className="btn btn-primary" onClick = {this.deleteCategory.bind(this)}>Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
      
     </div>
   );
