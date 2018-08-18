@@ -190,6 +190,10 @@ class TranspoItem extends React.Component {
          filename :"choose file to update",
          imagePath: this.props.imgPath
  }
+ deleteTranspo(){
+    firebase.database().ref("transportation").child(this.props.id).remove();
+    
+ }
  onfileSelect(){
     const superb = this;
     const ref = firebase.storage().ref();
@@ -271,7 +275,7 @@ class TranspoItem extends React.Component {
                     <div className = "col">
                     
                     <button type="button" class="btn btn-outline-success m-1" onClick = {this.extendUpdateContainer.bind(this)}>Update</button>
-                    <button type="button" class="btn btn-outline-danger m-1">Delete</button>
+                    <button type="button" class="btn btn-outline-danger m-1" data-toggle="modal" data-target={"#deleteTranspo"+this.props.id}>Delete</button>
                     </div>
                 
             </div> 
@@ -319,6 +323,20 @@ class TranspoItem extends React.Component {
                   
                     <button className="btn btn-primary" onClick = {this.updateTranspo.bind(this)}>Submit</button>
                </div>
+            </div>
+            {/* delete transpo modal */}
+            <div className="modal fade" id={"deleteTranspo"+this.props.id} tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div className="modal-dialog" role="document">
+                    <div className="modal-content">
+                    <div className="modal-body">
+                        Delete Transpo?
+                    </div>
+                    <div className="modal-footer">
+                        <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" className="btn btn-primary" onClick = {this.deleteTranspo.bind(this)}>Delete</button>
+                    </div>
+                    </div>
+                </div>
             </div>
         </React.Fragment>
         
