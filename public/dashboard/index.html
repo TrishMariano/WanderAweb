@@ -52,7 +52,7 @@
 		</button>
 		<div class="collapse navbar-collapse justify-content-end" id="navbarResponsive">
 				<li class="nav-item ">
-					<button type="button" class="btn btn-outline-light btn-sm">Signout</button>
+					<button type="button" onclick="logout()" class="btn btn-outline-light btn-sm">Signout</button>
 				</li>
 			</ul>
 </div>
@@ -94,6 +94,7 @@
   };
   firebase.initializeApp(config);
 </script>
+<script src="../auth.js" ></script>
 <script src="app.js" type="text/babel"></script>
 <script src="utilities.js" type="text/babel"></script>
 <script src="phrasebook.js" type = "text/babel"></script>
