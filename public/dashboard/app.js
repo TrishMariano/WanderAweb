@@ -264,7 +264,7 @@ class Business extends React.Component {
     );
   }
 }
-manageBusiness();
+
 function getBusinessProfileList() {
   var container = document.getElementById("businessProfileList");
   var businssProfilesObjects = [];
