@@ -103,6 +103,9 @@ class BusinessMainContainer extends React.Component {
             </li>
           </ul>
         </div>
+        <div className = "col-sm-12" id = "statusConfrim">
+        
+        </div>
         <div className="col-sm-12" id="businessProfileList" />
       </div>
     );
@@ -127,8 +130,35 @@ class Business extends React.Component {
 
           console.log(error);
           getBusinessProfileList();
+
         } else {
           // Data saved successfully!
+         if(aprroval){
+          ReactDOM.render(
+            <div class="alert alert-success" role="alert">
+            Appoved
+           </div>
+            ,document.querySelector("#statusConfrim")
+          )
+         }else{
+          ReactDOM.render(
+            <div class="alert alert-danger" role="alert">
+            Disabled
+           </div>
+            ,document.querySelector("#statusConfrim")
+          )
+         
+         }
+         setTimeout(
+          function() {
+            ReactDOM.render(
+             <React.Fragment>
+              
+             </React.Fragment>
+              ,document.querySelector("#statusConfrim")
+            )
+          }, 3000);
+        
           console.log("success");
           setLoading();
           getBusinessProfileList();
