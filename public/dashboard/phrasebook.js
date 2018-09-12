@@ -170,14 +170,18 @@ render() {
     <div className = "mb-2">
       <div className="card">
         <div className="card-header bg-white d-flex justify-content-between" id={"heading"+this.props.id}>
+          <div className = "row w-100">
+          <div className = "col-sm-12 col-md">
           <h5 className="mb-0">
             <button className="btn btn-link" type="button" data-toggle="collapse" data-target={"#collapseOne"+this.props.id} aria-expanded="true" aria-controls="collapseOne">
               {this.props.category}
             </button>
           </h5>
-          <div>
+          </div>
+          <div className = "col-sm-12 col-md">
           <button type="button" data-toggle="modal" data-target={"#updateCategory"+this.props.id} className="btn btn-success mr-3">Update</button>
           <button type="button" data-toggle="modal" data-target={"#delete"+this.props.id} className="btn btn-danger">Delete</button>
+          </div>
           </div>
         </div>
 

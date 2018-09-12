@@ -154,27 +154,6 @@ class TranspoContainer extends React.Component{
                     <button onClick = {this.addTranspo.bind(this)} className="btn btn-primary">Submit</button>
                </div>
             </div>
-            <div className ="row w-100">
-                <div className = "font-weight-bold col">
-                Driver Name
-                </div>
-                <div className = "font-weight-bold col">
-                Contact Number
-                </div>
-                <div className = "col font-weight-bold">
-                Price
-                </div>
-                <div className = "col font-weight-bold">
-                Seats
-                </div>
-                <div className = "col font-weight-bold">
-                Origin
-                </div>
-                <div className = "col font-weight-bold">
-                
-                </div>
-
-            </div>  
             <div className = "w-100" id = "transpoContainer">
                 
             </div>
@@ -255,24 +234,31 @@ class TranspoItem extends React.Component {
     render() { 
         return (
         <React.Fragment>
-            <div className = "row">
+            <div className = "row shadow-sm">
                     
-                    <div className = "col">
+                    <div className = "col-sm-12 col-md">
+                    <small>Driver Name</small><br/>
                     {this.props.drivername}
                     </div>
-                    <div className = "col">
+                    <div className = "col-sm-12 col-md">
+                    
+                    <small>Contact</small><br/>
                     {this.props.contact}
                     </div>
-                    <div className = "col">
+                    <div className = "col-sm-12 col-md">
+                    <small>Price</small><br/>
                     {this.props.price}
                     </div>
-                    <div className = "col">
+                    <div className = "col-sm-12 col-md">
+                    <small>Searts</small><br/>
                     {this.props.seats}
                     </div>
-                    <div className = "col">
+                    
+                    <div className = "col-sm-12 col-md">
+                    <small>Origin</small><br/>
                     {this.props.origin}
                     </div>
-                    <div className = "col">
+                    <div className = "col-sm-12 col-md">
                     
                     <button type="button" class="btn btn-outline-success m-1" onClick = {this.extendUpdateContainer.bind(this)}>Update</button>
                     <button type="button" class="btn btn-outline-danger m-1" data-toggle="modal" data-target={"#deleteTranspo"+this.props.id}>Delete</button>

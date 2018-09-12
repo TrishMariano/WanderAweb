@@ -255,17 +255,17 @@ class Business extends React.Component {
   }
   render() {
     return (
-      <div className = "col-sm-12 col-xl-6">
+      <div className = "col-sm-12 col-xl-4">
       <div className="card shadow-sm p-3 border-0 border">
-        <div className="d-flex flex-row">
-          <div className="">
+        <div className="d-flex flex-row row">
+          <div className="col-sm-12 d-flex justify-content-center aling-center">
             <img
               className="centered businessImage rounded-circle border border-secondary"
               src={this.props.restoProfileImagePath}
               alt="Card image cap"
             />
           </div>
-          <div className="ml-3">
+          <div className="ml-3 pl-3 col-sm-12">
             <h5
               className="modal-title text-uppercase font-weight-light"
               id="exampleModalLabel"
@@ -480,17 +480,17 @@ class PendingBusiness extends React.Component {
 
   render() {
     return (
-      <div className = "col-sm-12 col-xl-6">
+      <div className = "col-sm-12 col-xl-4">
       <div className="card shadow-sm p-3 border-0 border">
-        <div className="d-flex flex-row">
-          <div className="">
+        <div className="d-flex flex-row row">
+          <div className="col-sm-12 d-flex justify-content-center">
             <img
               className="centered businessImage rounded-circle border border-secondary"
               src={this.props.restoProfileImagePath}
               alt="Card image cap"
             />
           </div>
-          <div className="ml-3">
+          <div className="ml-3 pl-3">
             <h5
               className="modal-title text-uppercase font-weight-light"
               id="exampleModalLabel"
@@ -610,17 +610,17 @@ class ApprovedBusiness extends React.Component {
 
   render() {
     return (
-      <div className = "col-sm-12 col-xl-6">
+      <div className = "col-sm-12 col-xl-4">
       <div className="card shadow-sm p-3 border-0 border">
-        <div className="d-flex flex-row">
-          <div className="">
+        <div className="d-flex flex-row row">
+          <div className="col-sm-12 d-flex justify-content-center">
             <img
               className="centered businessImage rounded-circle border border-secondary"
               src={this.props.restoProfileImagePath}
               alt="Card image cap"
             />
           </div>
-          <div className="ml-3">
+          <div className="ml-3 pl-3">
             <h5
               className="modal-title text-uppercase font-weight-light"
               id="exampleModalLabel"
