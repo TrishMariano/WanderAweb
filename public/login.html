@@ -69,15 +69,22 @@ var actionCodeSettings = {
   handleCodeInApp: true
 };
   function resetPassword(){
-	  let email = "acegwapog@gmail.com";
-	firebase.auth().sendPasswordResetEmail(email)
-    .then(function() {
-	  // Password reset email sent.
-	  console.log("password reset sent");
-    })
-    .catch(function(error) {
-      // Error occurred. Inspect error.code.
-    });
+	
+		
+		var email = prompt("Please enter your Email", "");
+
+		if (email != null) {
+			firebase.auth().sendPasswordResetEmail(email)
+				.then(function() {
+				// Password reset email sent.
+				console.log("password reset sent");
+				alert("Password reset mail sent to  "+email);
+				})
+				.catch(function(error) {
+					// Error occurred. Inspect error.code.
+					alert("Password sending Failed");
+				});
+		}
   }
 </script>
 <script src="auth.js" type="text/javascript">

@@ -221,15 +221,22 @@ class TranspoItem extends React.Component {
         let phonenum = $("#contact-number"+this.props.id).val();
         let imgPath = this.state.imagePath;
         
-        firebase.database().ref("transportation").child(this.props.id).update({
-            name:name,
-            price:price,
-            seats:seats,
-            number:phonenum,
-            origin:origin,
-            vanImg:imgPath
-        });
-        this.extendUpdateContainer();
+        if (phonenum.length==11){
+            firebase.database().ref("transportation").child(this.props.id).update({
+                name:name,
+                price:price,
+                seats:seats,
+                number:phonenum,
+                origin:origin,
+                vanImg:imgPath
+            });
+            this.extendUpdateContainer();
+        }
+        else{
+            alert("Please input valid contact number");
+        }
+
+       
     }
     render() { 
         return (
@@ -250,7 +257,7 @@ class TranspoItem extends React.Component {
                     {this.props.price}
                     </div>
                     <div className = "col-sm-12 col-md">
-                    <small>Searts</small><br/>
+                    <small>Seats</small><br/>
                     {this.props.seats}
                     </div>
                     
@@ -259,9 +266,15 @@ class TranspoItem extends React.Component {
                     {this.props.origin}
                     </div>
                     <div className = "col-sm-12 col-md">
-                    
-                    <button type="button" class="btn btn-outline-success m-1" onClick = {this.extendUpdateContainer.bind(this)}>Update</button>
-                    <button type="button" class="btn btn-outline-danger m-1" data-toggle="modal" data-target={"#deleteTranspo"+this.props.id}>Delete</button>
+                    <div className = "row">
+                        <div className = "col">
+                          
+                        <button type="button" class="btn btn-outline-success w-100 m-1" onClick = {this.extendUpdateContainer.bind(this)}>Update</button>
+                        </div>
+                        <div className = "col">
+                        <button type="button" class="btn btn-outline-danger w-100 m-1" data-toggle="modal" data-target={"#deleteTranspo"+this.props.id}>Delete</button>
+                        </div>
+                    </div>
                     </div>
                 
             </div> 
@@ -297,7 +310,7 @@ class TranspoItem extends React.Component {
                     </div>
                     <div className="form-group">
                         <label for="exampleInputEmail1">Contact Number</label>
-                        <input type="number" defaultValue = {this.props.contact} className="form-control" id={"contact-number"+this.props.id} aria-describedby="emailHelp" placeholder="Ex: +63916"/>
+                        <input type="number" defaultValue = {this.props.contact} className="form-control" id={"contact-number"+this.props.id} aria-describedby="emailHelp" placeholder="Ex: 0918"/>
                         <small id="emailHelp" className="form-text text-muted">Driver's Contact Number</small>
                     </div>
                     <div className="form-group">

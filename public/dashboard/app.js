@@ -277,7 +277,9 @@ class Business extends React.Component {
                 {this.props.businessType}
               </small>
             </div>
-            <div className="row pl-3 w-100 ">{this.props.address}</div>
+            <div className="row pl-3 w-100 ">
+            {/* {this.props.address} */}
+            </div>
             <div
               id={"ownerContainer" + this.props.businessId}
               className="row pl-2 w-100"
@@ -502,7 +504,9 @@ class PendingBusiness extends React.Component {
                 {this.props.businessType}
               </small>
             </div>
-            <div className="row pl-3 w-100 ">{this.props.address}</div>
+            <div className="row pl-3 w-100 ">
+            {/* {this.props.address} */}
+            </div>
             <div
               id={"ownerContainer" + this.props.businessId}
               className="row pl-2 w-100"
@@ -632,7 +636,9 @@ class ApprovedBusiness extends React.Component {
                 {this.props.businessType}
               </small>
             </div>
-            <div className="row pl-3 w-100 ">{this.props.address}</div>
+            <div className="row pl-3 w-100 ">
+            {/* {this.props.address} */}
+            </div>
             <div
               id={"ownerContainer" + this.props.businessId}
               className="row pl-2 w-100"
